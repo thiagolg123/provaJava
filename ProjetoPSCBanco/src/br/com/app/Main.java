@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 
 
-import br.com.view.EditarRemoverCidadeGUI;
+import br.com.view.EditarRemoverIdiomaGUI;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
     	//new AtorControl();
 
-        JFrame editarRemoverAtorGui = new EditarRemoverCidadeGUI();
+        JFrame editarRemoverAtorGui = new EditarRemoverIdiomaGUI();
         editarRemoverAtorGui.setVisible(true);
     }
 }

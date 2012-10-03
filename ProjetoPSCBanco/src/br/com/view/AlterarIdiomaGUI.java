@@ -6,8 +6,8 @@ package br.com.view;
 
 import java.sql.Timestamp;
 
-import br.com.control.CidadeControl;
-import br.com.model.CidadeForm;
+import br.com.control.IdiomaControl;
+import br.com.model.IdiomaForm;
 import br.com.util.Util;
 
 /**
@@ -21,29 +21,29 @@ import br.com.util.Util;
  * @version Thiago de Lima Gonçalves RA: 100838359
  *
  */
-public class AlterarCidadeGUI extends javax.swing.JFrame {
+public class AlterarIdiomaGUI extends javax.swing.JFrame {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 5352239007146562964L;
 	/**
-     * Creates new form InserirCidadeGUI
+     * Creates new form InserirIdiomaGUI
      */
-    public AlterarCidadeGUI() {
+    public AlterarIdiomaGUI() {
     	initComponents();
         
     }
     
-    public AlterarCidadeGUI(Integer codigoCidade) {
+    public AlterarIdiomaGUI(Integer codigoCidade) {
         initComponents();
         
-        CidadeForm cidadeForm = new CidadeForm();
-        cidadeForm.setCidade_id(codigoCidade);
-        CidadeControl.obtemCidade(cidadeForm);
-        jtfcodigoCidade.setText(String.valueOf(cidadeForm.getCidade_id()));
-        jtfcidade.setText(cidadeForm.getCidade());
-        jtfpais_id.setText(String.valueOf(cidadeForm.getPais_id()));
+        IdiomaForm idiomaForm = new IdiomaForm();
+        idiomaForm.setIdioma_id(codigoCidade);
+        IdiomaControl.obtemCidade(idiomaForm);
+        jtfcodigoCidade.setText(String.valueOf(idiomaForm.getIdioma_id()));
+        jtfcidade.setText(idiomaForm.getIdioma());
+        jtfpais_id.setText(String.valueOf(idiomaForm.getIdioma_id()));
         jtfModificacao.setText(new Timestamp(System.currentTimeMillis()).toString());
     }
 
@@ -160,20 +160,20 @@ public class AlterarCidadeGUI extends javax.swing.JFrame {
 	        Integer pais_id =Integer.parseInt(jtfpais_id.getText());
 	        String ultimaAtualizacao = jtfModificacao.getText();
 	                        
-	        CidadeForm cidadeForm = new CidadeForm();
+	        IdiomaForm idiomaForm = new IdiomaForm();
 	      //  cidadeForm.setCidade_id(atorId);
-	        cidadeForm.setCidade(cidade);
-	        cidadeForm.setPais_id(pais_id);
-			cidadeForm.setUltima_atualizacao(Util.formatarData(ultimaAtualizacao));
+	        idiomaForm.setIdioma(cidade);
+	        idiomaForm.setIdioma_id(pais_id);
+			idiomaForm.setUltima_atualizacao(Util.formatarData(ultimaAtualizacao));
 
-			CidadeControl.atualizarCidade(cidadeForm);
+			IdiomaControl.atualizaIdioma(idiomaForm);
 
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        EditarRemoverCidadeGUI.atualizaTabela();
+        EditarRemoverIdiomaGUI.atualizaTabela();
         this.dispose();
     }                                         
 

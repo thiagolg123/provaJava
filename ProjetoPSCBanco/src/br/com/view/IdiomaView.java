@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  *
  */
 
-public class CidadeView extends JFrame{
+public class IdiomaView extends JFrame{
 
 	private static final long serialVersionUID = 1L;
     private JPanel jContentPane = null;
@@ -24,7 +24,7 @@ public class CidadeView extends JFrame{
     private JTextField resultField = null;
     
     
-	public CidadeView(){
+	public IdiomaView(){
 		super();
 		
 	}

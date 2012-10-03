@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.model.CidadeForm;
+import br.com.model.IdiomaForm;
 import br.com.model.Conexao;
 
 /**
@@ -18,17 +18,17 @@ import br.com.model.Conexao;
  */
 
 
-public class CidadeDAO {
+public class IdiomaDAO {
 
 	private static Conexao conexao = new Conexao();
 
-	public static Integer getIdAtor() {
+	public static Integer getIdIdioma() {
 		Integer result = 0;
 		conexao.conecta();
 
 		try {
 
-			conexao.executeSQL("SELECT * FROM CIDADE");
+			conexao.executeSQL("SELECT * FROM Idioma");
 
 			while (conexao.res.next()) {
 				result++;
@@ -43,18 +43,18 @@ public class CidadeDAO {
 		return result;
 	}
 
-	public static Integer ultimoAtor() {
+	public static Integer ultimoIdioma() {
 		Statement statement= null;
 		ResultSet resultSet = null;
 
 		try {
 
 			statement = conexao.conecta().createStatement();
-			String query = "SELECT * FROM CIDADE";
+			String query = "SELECT * FROM Idioma";
 			resultSet = statement.executeQuery(query);
 
 			if (resultSet.last()) {
-				return resultSet.getInt("CIDADE_ID") + 1;
+				return resultSet.getInt("Idioma_ID") + 1;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -63,22 +63,21 @@ public class CidadeDAO {
 		return 1;
 	}
 
-	public static CidadeForm getCidade(CidadeForm cidadeForm) {
+	public static IdiomaForm getIdioma(IdiomaForm idiomaForm) {
 
 		conexao.conecta();
 
 		try {
 
-			conexao.executeSQL("SELECT * FROM CIDADE WHERE CIDADE_ID = "
-					+ cidadeForm.getCidade_id());
+			conexao.executeSQL("SELECT * FROM Idioma WHERE Idioma_ID = "
+					+ idiomaForm.getIdioma_id());
 
 			while (conexao.res.next()) {
 
-				cidadeForm.setCidade_id(conexao.res.getInt("CIDADE_ID"));
-				cidadeForm.setCidade(conexao.res
-						.getString("CIDADE"));
-				cidadeForm.setPais_id(conexao.res.getInt("PAIS_ID"));
-				cidadeForm.setUltima_atualizacao(conexao.res
+				idiomaForm.setIdioma_id(conexao.res.getInt("Idioma_ID"));
+				idiomaForm.setIdioma(conexao.res
+						.getString("Idioma"));
+				idiomaForm.setUltima_atualizacao(conexao.res
 						.getTimestamp("ULTIMA_ATUALIZACAO"));
 
 			}
@@ -87,62 +86,59 @@ public class CidadeDAO {
 			JOptionPane.showMessageDialog(null, "Erro: " + exc);
 		}
 		conexao.desconecta();
-		return cidadeForm;
+		return idiomaForm;
 	}
 
-	public static List<CidadeForm> getTodasCidades() {
+	public static List<IdiomaForm> getTodosIdiomas() {
 
-		List<CidadeForm> cidadelist = new ArrayList<CidadeForm>();
+		List<IdiomaForm> idiomalist = new ArrayList<IdiomaForm>();
 		conexao.conecta();
 
 		try {
 
-			conexao.executeSQL("SELECT * FROM CIDADE");
+			conexao.executeSQL("SELECT * FROM Idioma");
 
 			while (conexao.res.next()) {
 
-				CidadeForm CidadeForm = new CidadeForm();
-				CidadeForm.setCidade_id(conexao.res.getInt("CIDADE_ID"));
-				CidadeForm.setCidade(conexao.res
-						.getString("CIDADE"));
-				CidadeForm.setPais_id(conexao.res.getInt("PAIS_ID"));
-				CidadeForm.setUltima_atualizacao(conexao.res
+				IdiomaForm idiomaForm = new IdiomaForm();
+				idiomaForm.setIdioma_id(conexao.res.getInt("Idioma_ID"));
+				idiomaForm.setIdioma(conexao.res
+						.getString("Idioma"));
+				idiomaForm.setUltima_atualizacao(conexao.res
 						.getTimestamp("ULTIMA_ATUALIZACAO"));
 
-				cidadelist.add(CidadeForm);
+				idiomalist.add(idiomaForm);
 			}
 			conexao.desconecta();
 		} catch (SQLException exc) {
 			JOptionPane.showMessageDialog(null, "Erro: " + exc);
 		}
-		return cidadelist;
+		return idiomalist;
 	}
 
-	public void inserir(CidadeForm cidadeForm) {
+	public void inserir(IdiomaForm idiomaForm) {
 		try {
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder
-					.append("INSERT INTO CIDADE(CIDADE_ID, CIDADE, ULTIMA_ATUALIZACAO)");
+					.append("INSERT INTO Idioma(Idioma_ID, Idioma, ULTIMA_ATUALIZACAO)");
 			stringBuilder.append("VALUES('")
-					.append(cidadeForm.getCidade()).append("',");
-			stringBuilder.append("'").append(cidadeForm.getPais_id())
-					.append("',");
-			stringBuilder.append("'").append(cidadeForm.getUltima_atualizacao())
+					.append(idiomaForm.getIdioma()).append("',");
+			stringBuilder.append("'").append(idiomaForm.getUltima_atualizacao())
 					.append("')");
 			System.out.println(stringBuilder);
 
-			String sqlInsert = "INSERT INTO ATOR(PRIMEIRO_NOME, ULTIMO_NOME, ULTIMA_ATUALIZACAO)"
+			String sqlInsert = "INSERT INTO Idioma(Idioma_ID, Idioma, ULTIMA_ATUALIZACAO)"
 					+ " VALUES('"
-					+ cidadeForm.getCidade()
+					+ idiomaForm.getIdioma_id()
 					+ "','"
-					+ cidadeForm.getPais_id()
+					+ idiomaForm.getIdioma_id()
 					+ "','"
-					+ cidadeForm.getUltima_atualizacao() + "')";
+					+ idiomaForm.getUltima_atualizacao() + "')";
 
 			conexao.stmt.executeUpdate(sqlInsert);
 
 			JOptionPane.showMessageDialog(null,
-					"Gravação na tabela ATOR realizado com sucesso!");
+					"Gravação na tabela Idioma realizado com sucesso!");
 			conexao.desconecta();
 		} catch (Exception erro) {
 
@@ -152,12 +148,12 @@ public class CidadeDAO {
 		}
 	}
 
-	public void excluir(CidadeForm cidadeForm) {
+	public void excluir(IdiomaForm idiomaForm) {
 		// procedimento para exclusão de registro
 		try {
 
-			String sqlExcluir = "DELETE FROM CIDADE WHERE CIDADE_ID = "
-					+ cidadeForm.getCidade_id();
+			String sqlExcluir = "DELETE FROM Idioma WHERE Idioma_ID = "
+					+ idiomaForm.getIdioma_id();
 			conexao.conecta();
 			conexao.stmt.executeUpdate(sqlExcluir);
 
@@ -171,27 +167,25 @@ public class CidadeDAO {
 		}
 	}
 
-	public void alterar(CidadeForm cidadeForm) {
+	public void alterar(IdiomaForm idiomaForm) {
 		// código para Alterar os dados no Banco de Dados
 		try {
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.append("UPDATE CIDADE ");
-			stringBuilder.append("SET CIDADE = '")
-					.append(cidadeForm.getCidade()).append("'");
-			stringBuilder.append(", PAIS_ID = '")
-					.append(cidadeForm.getPais_id()).append("'");
+			stringBuilder.append("UPDATE Idioma ");
+			stringBuilder.append("SET Idioma = '")
+					.append(idiomaForm.getIdioma()).append("'");
+			
 			stringBuilder.append(", ULTIMA_ATUALIZACAO = '")
-					.append(cidadeForm.getUltima_atualizacao()).append("'");
-			stringBuilder.append(" WHERE ATOR_ID = ").append(
-					cidadeForm.getCidade_id());
+					.append(idiomaForm.getUltima_atualizacao()).append("'");
+			stringBuilder.append(" WHERE Idioma_ID = ").append(
+					idiomaForm.getIdioma_id());
 			System.out.println(stringBuilder);
 
-			String sqlAlterar = "UPDATE CIDADE " + "SET CIDADE = '"
-					+ cidadeForm.getCidade() + "'" + ", PAIS_ID = '"
-					+ cidadeForm.getPais_id() + "'"
+			String sqlAlterar = "UPDATE Idioma " + "SET Idioma = '"
+					+ idiomaForm.getIdioma_id() + "'"
 					+ ", ULTIMA_ATUALIZACAO = '"
-					+ cidadeForm.getUltima_atualizacao() + "'"
-					+ " WHERE CIDADE_ID = " + cidadeForm.getCidade_id();
+					+ idiomaForm.getUltima_atualizacao() + "'"
+					+ " WHERE Idioma_ID = " + idiomaForm.getIdioma_id();
 			conexao.conecta();
 			conexao.stmt.executeUpdate(sqlAlterar);
 			JOptionPane.showMessageDialog(null,
@@ -205,17 +199,17 @@ public class CidadeDAO {
 		}
 	}
 
-	public void consultar(CidadeForm cidadeForm) {
+	public void consultar(IdiomaForm idiomaForm) {
 		try {
-			conexao.executeSQL("SELECT * FROM CIDADE WHERE ATOR_ID = "
-					+ cidadeForm.getCidade_id());
+			conexao.executeSQL("SELECT * FROM Idioma WHERE Idioma_ID = "
+					+ idiomaForm.getIdioma_id());
 
 			while (conexao.res.next()) {
-				cidadeForm.setCidade_id(conexao.res.getInt(0));
-				cidadeForm.setCidade(conexao.res
-						.getString("CIDADE"));
-				cidadeForm.setPais_id(conexao.res.getInt("PAIS_ID"));
-				cidadeForm.setUltima_atualizacao(conexao.res
+				idiomaForm.setIdioma_id(conexao.res.getInt(0));
+				idiomaForm.setIdioma(conexao.res
+						.getString("Idioma"));
+				
+				idiomaForm.setUltima_atualizacao(conexao.res
 						.getTimestamp("ULTIMA_ATUALIZACAO"));
 			}
 			conexao.desconecta();

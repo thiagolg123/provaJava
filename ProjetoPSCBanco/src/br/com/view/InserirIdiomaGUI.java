@@ -3,9 +3,9 @@ package br.com.view;
 import java.sql.Timestamp;
 
 
-import br.com.control.CidadeControl;
-import br.com.dao.CidadeDAO;
-import br.com.model.CidadeForm;
+import br.com.control.IdiomaControl;
+import br.com.dao.IdiomaDAO;
+import br.com.model.IdiomaForm;
 import br.com.util.Util;
 
 /**
@@ -14,16 +14,16 @@ import br.com.util.Util;
  * 
  * 
  */
-public class InserirCidadeGUI extends javax.swing.JFrame {
+public class InserirIdiomaGUI extends javax.swing.JFrame {
 
    
 	private static final long serialVersionUID = 6898114385324004989L;
 	/**
-     * Creates new form InserirCidadeGUI
+     * Creates new form InserirIdiomaGUI
      */
-    public InserirCidadeGUI() {
+    public InserirIdiomaGUI() {
         initComponents();
-        jtfCodigoAtor.setText(CidadeDAO.ultimoAtor().toString());
+        jtfCodigoAtor.setText(IdiomaDAO.ultimoIdioma().toString());
         jtfModificacao.setText(new Timestamp(System.currentTimeMillis()).toString());
     }
 
@@ -133,19 +133,19 @@ public class InserirCidadeGUI extends javax.swing.JFrame {
 	        Integer ultimoNome = Integer.parseInt(jtfUltimoNome.getText());
 	        String ultimaAtualizacao = jtfModificacao.getText();
 	        
-	        CidadeForm cidadeForm = new CidadeForm();
-	        cidadeForm.setCidade(primeiroNome);
-	        cidadeForm.setPais_id(ultimoNome);
-			cidadeForm.setUltima_atualizacao(Util.formatarData(ultimaAtualizacao));
+	        IdiomaForm idiomaForm = new IdiomaForm();
+	        idiomaForm.setIdioma(primeiroNome);
+	        idiomaForm.setIdioma_id(ultimoNome);
+			idiomaForm.setUltima_atualizacao(Util.formatarData(ultimaAtualizacao));
 		
-			CidadeControl.addCidade(cidadeForm);
+			IdiomaControl.addCidade(idiomaForm);
 
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        EditarRemoverCidadeGUI.atualizaTabela();
+        EditarRemoverIdiomaGUI.atualizaTabela();
         this.dispose();
     }
 

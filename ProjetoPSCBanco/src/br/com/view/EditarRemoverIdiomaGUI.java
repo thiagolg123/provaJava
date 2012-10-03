@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.control.CidadeControl;
-import br.com.model.CidadeForm;
+import br.com.control.IdiomaControl;
+import br.com.model.IdiomaForm;
 
 
 /**
@@ -16,13 +16,13 @@ import br.com.model.CidadeForm;
  *
  */
 
-public class EditarRemoverCidadeGUI extends javax.swing.JFrame {
+public class EditarRemoverIdiomaGUI extends javax.swing.JFrame {
    
 	private static final long serialVersionUID = 8659841930295103996L;
 	/**
-     * Creates new form EditarRemoverCidadeGUI
+     * Creates new form EditarRemoverIdiomaGUI
      */
-    public EditarRemoverCidadeGUI() {
+    public EditarRemoverIdiomaGUI() {
         initComponents();
         atualizaTabela();
     }
@@ -135,7 +135,7 @@ public class EditarRemoverCidadeGUI extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
-    	JFrame inserirAtorGUI = new InserirCidadeGUI();
+    	JFrame inserirAtorGUI = new InserirIdiomaGUI();
     	inserirAtorGUI.setVisible(true);
     }
 
@@ -144,7 +144,7 @@ public class EditarRemoverCidadeGUI extends javax.swing.JFrame {
     	 
         if (linhaSelecionada >= 0){
         	Object codigoAtor = jtbAtor.getValueAt(linhaSelecionada, 0);
-            JFrame alterarAtorGUI = new AlterarCidadeGUI((Integer) codigoAtor);
+            JFrame alterarAtorGUI = new AlterarIdiomaGUI((Integer) codigoAtor);
             alterarAtorGUI.setVisible(true);
             
         }
@@ -162,9 +162,9 @@ public class EditarRemoverCidadeGUI extends javax.swing.JFrame {
     		 Object codigoAtor = jtbAtor.getValueAt(linhaSelecionada, 0);
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja excluir o Ator?");
             if (resposta == JOptionPane.YES_OPTION){
-            	CidadeForm cidadeForm = new CidadeForm();
-            	cidadeForm.setCidade_id((Integer) codigoAtor);
-                CidadeControl.removerCidade(cidadeForm);
+            	IdiomaForm idiomaForm = new IdiomaForm();
+            	idiomaForm.setIdioma_id((Integer) codigoAtor);
+                IdiomaControl.removerIdioma(idiomaForm);
 
                 atualizaTabela();
             }
@@ -180,18 +180,18 @@ public class EditarRemoverCidadeGUI extends javax.swing.JFrame {
     	DefaultTableModel tabela = (DefaultTableModel) jtbAtor.getModel();
         tabela.setNumRows(0);
 
-        List<CidadeForm> atorList = CidadeControl.getTodasCidades();
+        List<IdiomaForm> atorList = IdiomaControl.getTodosIdiomas();
 
         for (int linha = 0; linha < atorList.size(); linha++) {
         	
-        	CidadeForm cidadeForm = atorList.get(linha);
+        	IdiomaForm idiomaForm = atorList.get(linha);
 
             tabela.addRow(new Object[]{1});
 
-            tabela.setValueAt(cidadeForm.getCidade_id(), linha, 0);
-            tabela.setValueAt(cidadeForm.getCidade(), linha, 1);
-            tabela.setValueAt(cidadeForm.getPais_id(), linha, 2);
-            tabela.setValueAt(cidadeForm.getUltima_atualizacao(), linha, 3);
+            tabela.setValueAt(idiomaForm.getIdioma_id(), linha, 0);
+            tabela.setValueAt(idiomaForm.getIdioma(), linha, 1);
+            tabela.setValueAt(idiomaForm.getIdioma_id(), linha, 2);
+            tabela.setValueAt(idiomaForm.getUltima_atualizacao(), linha, 3);
         }
     }
     
